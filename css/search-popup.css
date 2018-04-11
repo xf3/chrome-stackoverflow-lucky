@@ -1,0 +1,124 @@
+body, html {
+    border: 0;
+    margin: 0;
+    padding: 0;
+}
+
+body * {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    padding: 0 5px 5px;
+    min-width: 230px;
+    min-height: 50px;
+}
+
+#search-input {
+    border-radius: 5px;
+    border: 1px solid #dadada;
+    box-shadow: 0 0 2px #cdcdcd;
+    height: 25px;
+    width: 100%;
+    font-size: 11pt;
+    outline: none;
+    background: url("../img/search.png") no-repeat transparent;
+    padding-left: 24px;
+    margin-bottom: 10px;
+}
+
+#search-input::placeholder {
+    color: #c8c8c8;
+}
+
+#result {
+    position: relative;
+    padding: 40px 20px 10px;
+    min-width: 500px;
+}
+
+#result-name {
+    font-size: 17px;
+}
+
+#result-link {
+    font-size: 16px;
+}
+
+#result-content {
+    margin-top: 15px;
+    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+    font-size: 13px;
+}
+
+#result-content p {
+    clear: both;
+    margin-bottom: 1em;
+    margin-top: 0;
+}
+
+#result-content code {
+    padding: 1px 5px;
+}
+
+#result-content ul,
+#result-content ol {
+    margin-left: 30px;
+    margin-bottom: 1em;
+}
+
+#result-content pre {
+    margin-bottom: 1em;
+    padding: 5px;
+    width: auto;
+    max-height: 600px;
+    overflow: auto;
+    font-family: Consolas,Menlo,Monaco,Lucida Console,Liberation Mono,DejaVu Sans Mono,Bitstream Vera Sans Mono,Courier New,monospace,sans-serif;
+    font-size: 13px;
+    background-color: #eff0f1;
+}
+
+#result-content code {
+    white-space: pre-wrap;
+}
+
+#result-nav {
+    position: absolute;
+    top: 0;
+    right: 17px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 110px;
+    color: #ababab;
+    text-align: right;
+    font-size: 14px;
+}
+
+#result-nav button {
+    color: #FFF;
+    background-color: #0095ff;
+    box-shadow: inset 0 1px 0 #66bfff;
+    padding: 3px 8px;
+    border-radius: 2px;
+    border: 1px solid #07c;
+    cursor: pointer;
+    transition: color .1s ease-in-out,background-color .1s ease-in-out,border-color .1s ease-in-out,box-shadow .1s ease-in-out;
+}
+
+#result-nav button:hover {
+    background-color: #07c;
+    border-color: #005999;
+    box-shadow: inset 0 1px 0 #3af;
+}
+
+.has-scrollbar #result-nav {
+    right: 0;
+}
+
+#error-message {
+    color: #e13c3c;
+    min-width: 330px;
+    text-align: center;
+}
