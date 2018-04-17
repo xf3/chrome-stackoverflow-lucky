@@ -58,16 +58,18 @@
      * @return {{name: String, url: String, votes: Number, content: String}}
      */
     function parseItemInList(questionElement) {
-        var $, linkElement, answered;
+        var $, linkElement, answered, answeredBadges;
 
         $ = q(questionElement);
 
         linkElement = $('.result-link a')[0];
 
-        answered = linkElement.innerHTML.substr(0, 3) === 'A: ';
+        answered = linkElement.innerHTML.trim().substr(0, 3) === 'A: ';
 
         if (!answered) {
-            answered = $('.stats .status').length === 1;
+            answeredBadges = $('.stats .status');
+
+            answered = answeredBadges.length === 1 && !answeredBadges[0].classList.contains('unanswered');
         }
 
         //TODO: item date
@@ -208,7 +210,13 @@
                                     results = [];
 
                                     q(getHtmlBody(html))('.search-results .search-result').forEach(function (resultElement) {
-                                        results.push(parseItemInList(resultElement));
+                                        var item;
+
+                                        item = parseItemInList(resultElement);
+
+                                        if (item.answered) {
+                                            results.push(item);
+                                        }
                                     });
 
                                     return results;
