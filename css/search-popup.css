@@ -42,14 +42,23 @@ body {
     font-size: 17px;
 }
 
+#result-date {
+    font-size: 13px;
+    color: #8f8f8f;
+    margin-bottom: 5px;
+}
+
 #result-link {
     font-size: 16px;
+    margin-bottom: 20px;
+    display: inline-block;
 }
 
 #result-content {
-    margin-top: 15px;
     font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
     font-size: 13px;
+    border-top: 1px solid #e4e4e4;
+    padding-top: 10px;
 }
 
 #result-content p {

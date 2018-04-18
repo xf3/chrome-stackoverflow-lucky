@@ -55,7 +55,7 @@
      *
      * @param {Element} questionElement Item element
      *
-     * @return {{name: String, url: String, votes: Number, content: String}}
+     * @return {{name: String, url: String, votes: Number, content: String, date: Date}}
      */
     function parseItemInList(questionElement) {
         var $, linkElement, answered, answeredBadges;
@@ -72,11 +72,10 @@
             answered = answeredBadges.length === 1 && !answeredBadges[0].classList.contains('unanswered');
         }
 
-        //TODO: item date
-
         return {
             name: linkElement.title,
             url: 'https://stackoverflow.com' + linkElement.getAttribute('href'),
+            date: new Date($('.relativetime')[0].title),
             answered: answered,
             votes: Number($('.vote-count-post')[0].innerText) || 0,
             content: null,
@@ -101,7 +100,6 @@
                 .then(function (html) {
                     var answerElement;
 
-                    //TODO: answer date
                     //TODO: sort answers by votes?
                     answerElement = q(getHtmlBody(html))('#answers .answer').item(0);
 
@@ -155,12 +153,13 @@
     /**
      * Sets HTML for given item in popup
      *
-     * @param {{name: String, url: String, votes: Number, content: String}} [item] Item object
+     * @param {{name: String, url: String, votes: Number, content: String, date: Date}} [item] Item object
      */
     function setResult(item) {
         item = item || {};
 
         bid('result-name').innerHTML = item.name || '';
+        bid('result-date').innerHTML = item.date ? item.date.toISOString().substr(0, 19).replace('T', ' ') : '';
         bid('result-content').innerHTML = item.content || '';
 
         bid('result').style.display = item.name ? '' : 'none';
