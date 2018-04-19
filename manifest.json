@@ -9,7 +9,7 @@
     ],
     "browser_action": {
         "default_icon": "img/icon48.png",
-        "default_popup": "search-popup.html",
+        "default_popup": "html/search-popup.html",
         "default_title": "Stackoverflow I'm feeling lucky"
     },
     "icons": {

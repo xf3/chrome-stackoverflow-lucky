@@ -1,0 +1,10 @@
+{
+  "name": "chrome-stackoverflow-feeling-lucky",
+  "description": "Google Chrome extension: stackoverflow.com search \"I'm feeling lucky\"",
+  "author": "xf3.com",
+  "license": "MIT",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-sass": "^3.1.0"
+  }
+}
