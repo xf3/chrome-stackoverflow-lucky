@@ -4,12 +4,18 @@ const archiver = require('archiver');
 const archiveName = 'extension.zip';
 
 const archivePath = __dirname + '/' + archiveName;
+const finalArchivePath = __dirname + '/build/' + archiveName;
+
+if (fs.existsSync(finalArchivePath)) {
+    fs.unlinkSync(finalArchivePath);
+}
 
 const output = fs.createWriteStream(archivePath);
+
 const archive = archiver('zip');
 
 output.on('close', () => {
-    fs.renameSync(archivePath, __dirname + '/build/' + archiveName);
+    fs.renameSync(archivePath, finalArchivePath);
 
     console.log('Successfully created build/' + archiveName);
 });
