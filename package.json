@@ -4,11 +4,29 @@
   "author": "xf3.com",
   "license": "MIT",
   "scripts": {
-    "release": "node release.js"
+    "build": "webpack",
+    "build-prod": "cross-env NODE_ENV='production' webpack",
+    "release": "npm run build-prod && node release.js",
+    "unpacked": "npm run build && cross-env NODE_ENV='development' node release.js"
   },
   "devDependencies": {
-    "gulp": "^3.9.1",
-    "gulp-sass": "^3.1.0",
-    "archiver": "^2.1.1"
+    "archiver": "^2.1.1",
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.4",
+    "babel-plugin-transform-react-jsx": "^6.24.1",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-2": "^6.24.1",
+    "cross-env": "^5.1.4",
+    "css-loader": "^0.28.11",
+    "extract-text-webpack-plugin": "^3.0.2",
+    "fs-extra": "^5.0.0",
+    "node-sass": "^4.8.3",
+    "preact": "^8.2.7",
+    "preact-jsx-chai": "^2.2.1",
+    "sass-loader": "^5.0.1",
+    "uglifyjs-webpack-plugin": "^1.2.5",
+    "webpack": "^3.11.0",
+    "wrench": "^1.5.9"
   }
 }

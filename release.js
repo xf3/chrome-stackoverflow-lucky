@@ -1,38 +1,68 @@
+/* global __dirname */
+console.log('RELEASE');
 const fs = require('fs');
+const fse = require('fs-extra');
+const wrench = require('wrench');
 const archiver = require('archiver');
 
-const archiveName = 'extension.zip';
+const archiveDir = __dirname + '/build';
 
-const archivePath = __dirname + '/' + archiveName;
-const finalArchivePath = __dirname + '/build/' + archiveName;
+const isUnpacked = process.env.NODE_ENV === 'development';
 
-if (fs.existsSync(finalArchivePath)) {
-    fs.unlinkSync(finalArchivePath);
-}
+const forRelease = {
+    files: [
+        'manifest.json',
+    ],
+    directories: [
+        '_locales',
+        'html',
+        'img',
+    ]
+};
 
-const output = fs.createWriteStream(archivePath);
+forRelease.files.forEach(file => {
+    if (fs.existsSync(archiveDir + '/' + file)) {
+        fse.removeSync(archiveDir + '/' + file);
+    }
 
-const archive = archiver('zip');
-
-output.on('close', () => {
-    fs.renameSync(archivePath, finalArchivePath);
-
-    console.log('Successfully created build/' + archiveName);
+    fse.copySync(__dirname + '/' + file, archiveDir + '/' + file);
 });
 
-archive.pipe(output);
+forRelease.directories.forEach(dir => {
+    if (fs.existsSync(archiveDir + '/' + dir)) {
+        fse.removeSync(archiveDir + '/' + dir);
+    }
 
-archive.file(__dirname + '/manifest.json', { name: 'manifest.json' });
+    wrench.copyDirSyncRecursive(__dirname + '/' + dir, archiveDir + '/' + dir);
+});
 
-[
-    '_locales',
-    'build',
-    'html',
-    'img',
-    'js',
-]
-    .forEach(path => {
-        archive.directory(__dirname + '/' + path, path);
+if (!isUnpacked) {
+    const archiveName = 'extension.zip';
+    const archivePath = archiveDir + '/' + archiveName;
+
+    const output = fs.createWriteStream(archivePath);
+
+    output.on('close', () => {
+        console.log('Successfully created build/' + archiveName);
     });
 
-archive.finalize();
+    const archive = archiver('zip');
+
+    archive.pipe(output);
+
+    forRelease.files.forEach(file => {
+        archive.file(archiveDir + '/' + file, {
+            name: file
+        });
+    });
+
+    forRelease.directories.push('assets');
+
+    forRelease.directories.forEach(dir => {
+        archive.directory(archiveDir + '/' + dir, dir);
+    });
+
+    archive.finalize();
+} else {
+    console.log('Successfully copied to build/');
+}

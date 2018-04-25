@@ -2,7 +2,7 @@
     "name": "Stackoverflow search \"I'm feeling lucky\"",
     "short_name": "Stackoverflow feeling lucky",
     "description": "Allows to see best answer to given question on stackoverflow.com (Like Google's \"I'm feeling lucky\" function)",
-    "version": "1.1.0",
+    "version": "2.0.0",
     "manifest_version": 2,
     "default_locale": "en",
     "permissions": [
